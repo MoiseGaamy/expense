@@ -13,8 +13,9 @@ const Expenses = ({ expenses }) => {
     )
 }
 const mSTP = (state) => {
+    console.log(state);
     return {
-        expenses: state.expenses
+        expenses: state.expense.expenses
     }
 }
 export default connect(mSTP)(Expenses)

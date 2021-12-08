@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { connect } from 'react-redux';
 import { deleteExpense } from '../actions/expenseAction.js';
 import { editExpense } from '../actions/expenseAction.js';
+import { getAllExpense } from '../actions/expenseAction.js';
 
-const Expense = ({ expense, deletet, edite}) => {
+const Expense = ({ expense, deletet, edite, getAllExpense}) => {
     const [edit, setEdit] = useState(false);
     const [field, setField] = useState({
         id: expense.id,
@@ -31,6 +32,10 @@ const Expense = ({ expense, deletet, edite}) => {
 
     }
     console.log(expense);
+
+    useEffect(() => {
+        getAllExpense();
+    },[getAllExpense])
     return (
         <>
             {edit ? (
@@ -78,6 +83,7 @@ const Expense = ({ expense, deletet, edite}) => {
 }
 const mDSTP = {
     deletet: deleteExpense,
-    edite: editExpense
+    edite: editExpense,
+    getAllExpense,
 }
 export default connect(null, mDSTP)(Expense)

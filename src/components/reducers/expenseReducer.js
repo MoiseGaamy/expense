@@ -31,7 +31,9 @@ const expenseReducer = (state = initialState, action) => {
       const editedExpense = state.expenses.map(( expense) => {
         return expense.id === action.payload.id ? action.payload.edited : expense
         })
-      return {...state, expenses: editedExpense}
+      return { ...state, expenses: editedExpense }
+    case "ALL_EXPENSE":
+      return { expenses: action.payload };
           default:
         return state;
     }
