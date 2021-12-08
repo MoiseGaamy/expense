@@ -2,7 +2,10 @@ import React from 'react'
 import { connect } from 'react-redux';
 import { createUserWithEmailAndPassword, signInWithGoogle} from '../../actions/authActions.js';
 
-const Register = ({ create,google }) => {
+const Register = ({ create,google , auth ,history }) => {
+    
+    if (!auth.isLoaded) return null
+    if (!auth.isEmpty) history.push('/login')
     
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -10,7 +13,7 @@ const Register = ({ create,google }) => {
         let password = e.target.elements.password.value;
         create(email, password);
         email = "";
-            password = "";
+         password = "";
     }
     return (
         <div className="mycontainer">
@@ -32,8 +35,13 @@ const Register = ({ create,google }) => {
           </div>
     )
 }
+const mSTP = (state) => {
+    return {
+        auth:state.firebase.auth
+    }
+}
 const dispatchStateToProps = {
     create: createUserWithEmailAndPassword,
     google: signInWithGoogle
 }
-export default connect(null,dispatchStateToProps)(Register)
+export default connect(mSTP,dispatchStateToProps)(Register)
